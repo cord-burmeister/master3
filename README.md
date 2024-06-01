@@ -1,12 +1,12 @@
 # Introduction
 
-This is a project to lear robotics concepts with an simulated roboter which is based on the rosmaster X3 robot.
+This is a project to lear robotics concepts with an simulated robot which is based on the rosmaster X3 robot.
 
 ## Overview
 
 This repository provides a robot description and a simulation environment as playground for robotics experiments.
 
-One result is the simulation of a rosmaster3 robot in a gazebo simulation world.
+One result is the simulation of a rosmaster X3 robot in a gazebo simulation world.
 
 ![rviz-gazebo-simulation](docu/images/rviz-gazebo-simulation.png)
 
