@@ -1,4 +1,10 @@
-from ament_index_python.packages import get_package_share_path
+import os
+
+from ament_index_python.packages import (
+    get_package_share_path,
+get_package_share_directory,
+)
+
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
@@ -14,6 +20,38 @@ from launch.substitutions import (
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 from launch_ros.substitutions import FindPackageShare
+
+import xacro
+from launch.actions import OpaqueFunction
+
+
+# evaluates LaunchConfigurations in context for use with xacro.process_file(). Returns a list of launch actions to be included in launch description
+def evaluate_xacro(context, *args, **kwargs):
+
+    mecanum = LaunchConfiguration('mecanum').perform(context)
+
+    # Use xacro to process the file
+    xacro_file = os.path.join(get_package_share_directory('master3_description'), 'urdf', 'yahboomcar_X3.urdf.xacro')
+
+    #robot_description_config = xacro.process_file(xacro_file)
+    robot_description_config = xacro.process_file(xacro_file, 
+            mappings={  
+                "mecanum": mecanum
+                }).toxml()
+
+ 
+
+    robot_state_publisher_node = Node(
+      package='robot_state_publisher',
+      executable='robot_state_publisher',
+      name='robot_state_publisher',
+        output='both',
+      parameters=[{
+        'robot_description': robot_description_config
+      }])
+
+    return [robot_state_publisher_node]
+
 
 def generate_launch_description():
     description_path = get_package_share_path('master3_description')
@@ -40,39 +78,6 @@ def generate_launch_description():
     rviz_arg = DeclareLaunchArgument(name='rvizconfig', default_value=str(default_rviz_config_path),
                                      description='Absolute path to rviz config file')
 
-    robot_description = Command(
-            [
-                PathJoinSubstitution([FindExecutable(name="xacro")]),
-                " ",
-                PathJoinSubstitution(
-                    [
-                        FindPackageShare("master3_description"),
-                        "urdf",
-                        "yahboomcar_X3.urdf.xacro",
-                    ]
-                ),
-                " mecanum:=",
-                mecanum,
-                # " lidar_model:=",
-                # lidar_model,
-                # " camera_model:=",
-                # camera_model,
-                # " include_camera_mount:=",
-                # include_camera_mount,
-                # " use_sim:=",
-                # use_sim,
-                # " simulation_engine:=",
-                # simulation_engine,
-                " namespace:=",
-                namespace,
-            ]
-        )
-
-    robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        parameters=[{'robot_description': robot_description}]
-    )
 
     # Depending on gui parameter, either launch joint_state_publisher or joint_state_publisher_gui
     joint_state_publisher_node = Node(
@@ -102,6 +107,7 @@ def generate_launch_description():
         rviz_arg,
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
-        robot_state_publisher_node,
+        #robot_state_publisher_node,
+        OpaqueFunction(function=evaluate_xacro),        
         rviz_node
     ])
