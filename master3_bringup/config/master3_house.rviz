@@ -152,7 +152,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /master3_drive/odometry
+        Value: /wheel/odometry
       Value: true
     - Class: rviz_default_plugins/Camera
       Enabled: true
@@ -165,7 +165,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /master3_drive/color/image_raw
+        Value: /color/image_raw
       Value: true
       Visibility:
         Grid: true
@@ -205,7 +205,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /master3_drive/scan
+        Value: /scan
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -239,7 +239,7 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /master3_drive/depth/image_raw/points
+        Value: /depth/image_raw/points
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
