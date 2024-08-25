@@ -95,6 +95,24 @@ This opens the *gazebo* together with the *RViz2* with the spawned robot.
 ros2 launch master3_bringup master3_house.launch.py
 ```
 
+### Starting the simulation environment and the navigation
+
+<!-- ``` bash
+ros2 launch master3_nav2 master3_navigate.launch.py headless:=True
+``` -->
+
+
+``` bash
+ros2 launch master3_nav2 master3_navigate_slam.launch.py headless:=False
+```
+
+### Exploring and generate a map
+
+``` bash
+ros2 launch explore_lite explore.launch.py use_sim_time:=True
+```
+
+
 ## References
 
 [What is vcstool?](https://github.com/dirk-thomas/vcstool)
