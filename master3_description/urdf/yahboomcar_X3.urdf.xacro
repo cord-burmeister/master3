@@ -318,6 +318,15 @@
     <xacro:fixed_joint name="camera_joint" parent="base_link" child="camera_link"
         xyz="0.057105 1.7948E-05 0.03755" rpy="0 0 0" />
 
+
+        <joint name="camera_optical_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+            <parent link="camera_link" />
+            <child link="camera_link_optical" />
+        </joint>
+        
+        <link name="camera_link_optical"></link>
+
     <xacro:if value="${mecanum}">
         <gazebo>
             <plugin name='ignition::gazebo::systems::MecanumDrive' filename='ignition-gazebo-mecanum-drive-system'>
@@ -556,10 +565,10 @@
         <!-- https://github.com/orbbec/OrbbecSDK_ROS2#all-available-topics -->
         <sensor type="camera" name="camera_orbbec_astra_color">
             <always_on>true</always_on>
-            <update_rate>30.0</update_rate>
+            <update_rate>10.0</update_rate>
 
             <topic>/color/image_raw</topic>
-            <visualize>false</visualize>
+            <visualize>true</visualize>
 
             <gz_frame_id>camera_link</gz_frame_id>
             <horizontal_fov>${60.0/180.0*pi}</horizontal_fov>
@@ -580,6 +589,7 @@
             <topic>/depth/image_raw</topic>
             <visualize>true</visualize>
             <gz_frame_id>camera_link</gz_frame_id>
+            <!-- <gz_frame_id>camera_link_optical</gz_frame_id> -->
             <camera>
                 <horizontal_fov>${60.0/180.0*pi}</horizontal_fov>
                 <image>
