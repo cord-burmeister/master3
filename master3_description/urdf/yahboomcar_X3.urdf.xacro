@@ -329,7 +329,7 @@
 
     <xacro:if value="${mecanum}">
         <gazebo>
-            <plugin name='ignition::gazebo::systems::MecanumDrive' filename='ignition-gazebo-mecanum-drive-system'>
+            <plugin name='gz::sim::systems::MecanumDrive' filename='gz-sim-mecanum-drive-system'>
                 <front_left_joint>front_left_joint</front_left_joint>
                 <front_right_joint>front_right_joint</front_right_joint>
                 <back_left_joint>back_left_joint</back_left_joint>
@@ -362,8 +362,8 @@
     <xacro:unless value="${mecanum}">
         <gazebo>
             <plugin
-            filename="ignition-gazebo-diff-drive-system"
-            name="ignition::gazebo::systems::DiffDrive">
+            filename="gz-sim-diff-drive-system"
+            name="gz::sim::systems::DiffDrive">
             <left_joint>front_left_joint</left_joint>
             <right_joint>front_right_joint</right_joint>
             <left_joint>back_left_joint</left_joint>
