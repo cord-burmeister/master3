@@ -428,7 +428,7 @@
       </plugin> -->
 
     <!-- ## IMU sensor
-        This system manages all IMU sensors in simulation. Each IMU sensor eports vertical position, angular velocity and lienar acceleration readings over Gazebo Transport.
+        This system manages all IMU sensors in simulation. Each IMU sensor reports vertical position, angular velocity and linear acceleration readings over Gazebo Transport.
         https://gazebosim.org/docs/harmonic/sensors
         The inertial measurement unit (IMU) outputs the `orientation` of our
         robot in quaternions, the `angular_velocity` in the three axes (X, Y, Z),
